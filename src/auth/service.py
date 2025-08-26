@@ -5,14 +5,12 @@ from src.core.config import settings
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-# --- Hash y verificación ---
 def hash_password(password: str) -> str:
     return pwd_context.hash(password)
 
 def verify_password(password: str, hashed_password: str) -> bool:
     return pwd_context.verify(password, hashed_password)
 
-# --- JWT ---
 def create_access_token(data: dict, expires_delta: timedelta = timedelta(hours=2)):
     to_encode = data.copy()
     expire = datetime.utcnow() + expires_delta
@@ -26,3 +24,4 @@ def decode_access_token(token: str):
         return payload
     except JWTError:
         return None
+
