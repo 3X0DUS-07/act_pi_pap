@@ -17,4 +17,5 @@ class User(Base):
     role = Column(Enum(UserRole), default=UserRole.user)
     is_active = Column(Boolean, default=True)
 
-    recipes = relationship("Recipe", back_populates="owner")  # Relación con recetas
+    recipes = relationship("Recipe", back_populates="owner") 
+
