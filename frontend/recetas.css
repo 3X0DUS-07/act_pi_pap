@@ -1,0 +1,70 @@
+/* Estilos generales */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #d4fc79, #96e6a1); /* verde pastel degradado */
+    margin: 0;
+    padding: 0;
+    color: #2d3748;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 1000px;
+    margin: 3rem auto;
+    background: #ffffffcc;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(6px);
+}
+
+/* Título principal */
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #1e3a5f;
+    margin-bottom: 2rem;
+    background: linear-gradient(90deg, #56ccf2, #2f80ed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Contenedor de recetas */
+#recetas-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+
+/* Tarjetas de recetas */
+.receta-card {
+    background: linear-gradient(160deg, #a8edea, #fed6e3);
+    border-radius: 12px;
+    padding: 1.8rem;
+    width: 280px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Efecto hover */
+.receta-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Títulos de las recetas */
+.receta-card h2 {
+    margin-top: 0;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #0c5460;
+}
+
+/* Texto dentro de las tarjetas */
+.receta-card p {
+    color: #2d3748;
+    font-size: 1em;
+    line-height: 1.5;
+    text-align: justify;
+}
