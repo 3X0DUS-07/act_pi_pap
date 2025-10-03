@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <h1>Recipe Manager</h1>
+            </div>
+            <nav class="nav">
+                <button class="nav-btn active" data-section="dashboard">
+                    <i class="fas fa-home"></i> Dashboard
+                </button>
+                <button class="nav-btn" data-section="users">
+                    <i class="fas fa-users"></i> Usuarios
+                </button>
+                <button class="nav-btn" data-section="categories">
+                    <i class="fas fa-tags"></i> Categorías
+                </button>
+                <button class="nav-btn" data-section="ingredients">
+                    <i class="fas fa-leaf"></i> Ingredientes
+                </button>
+                <button class="nav-btn" data-section="recipes">
+                    <i class="fas fa-book-open"></i> Recetas
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section active">
+            <div class="container">
+                <h2>Dashboard</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <div class="stat-info">
+                            <h3 id="total-users">0</h3>
+                            <p>Usuarios</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-tags"></i>
+                        <div class="stat-info">
+                            <h3 id="total-categories">0</h3>
+                            <p>Categorías</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-leaf"></i>
+                        <div class="stat-info">
+                            <h3 id="total-ingredients">0</h3>
+                            <p>Ingredientes</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-book-open"></i>
+                        <div class="stat-info">
+                            <h3 id="total-recipes">0</h3>
+                            <p>Recetas</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="recent-recipes">
+                    <h3>Recetas Recientes</h3>
+                    <div id="recent-recipes-list" class="recipes-grid">
+                        <!-- Se llenarán con JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Users Section -->
+        <section id="users" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Gestión de Usuarios</h2>
+                    <button class="btn btn-primary" onclick="openModal('user-modal')">
+                        <i class="fas fa-plus"></i> Nuevo Usuario
+                    </button>
+                </div>
+                <div class="filters">
+                    <input type="text" id="user-search" placeholder="Buscar usuarios..." class="search-input">
+                    <select id="user-status-filter" class="filter-select">
+                        <option value="">Todos los estados</option>
+                        <option value="true">Activos</option>
+                        <option value="false">Inactivos</option>
+                    </select>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Usuario</th>
+                                <th>Email</th>
+                                <th>Nombre Completo</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table-body">
+                            <!-- Se llenarán con JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section id="categories" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Gestión de Categorías</h2>
+                    <button class="btn btn-primary" onclick="openModal('category-modal')">
+                        <i class="fas fa-plus"></i> Nueva Categoría
+                    </button>
+                </div>
+                <div class="filters">
+                    <input type="text" id="category-search" placeholder="Buscar categorías..." class="search-input">
+                </div>
+                <div class="cards-grid" id="categories-grid">
+                    <!-- Se llenarán con JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Ingredients Section -->
+        <section id="ingredients" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Gestión de Ingredientes</h2>
+                    <button class="btn btn-primary" onclick="openModal('ingredient-modal')">
+                        <i class="fas fa-plus"></i> Nuevo Ingrediente
+                    </button>
+                </div>
+                <div class="filters">
+                    <input type="text" id="ingredient-search" placeholder="Buscar ingredientes..." class="search-input">
+                </div>
+                <div class="cards-grid" id="ingredients-grid">
+                    <!-- Se llenarán con JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Recipes Section -->
+        <section id="recipes" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Gestión de Recetas</h2>
+                    <button class="btn btn-primary" onclick="openModal('recipe-modal')">
+                        <i class="fas fa-plus"></i> Nueva Receta
+                    </button>
+                </div>
+                <div class="filters">
+                    <input type="text" id="recipe-search" placeholder="Buscar recetas..." class="search-input">
+                    <select id="recipe-category-filter" class="filter-select">
+                        <option value="">Todas las categorías</option>
+                    </select>
+                    <select id="recipe-difficulty-filter" class="filter-select">
+                        <option value="">Todas las dificultades</option>
+                        <option value="easy">Fácil</option>
+                        <option value="medium">Medio</option>
+                        <option value="hard">Difícil</option>
+                    </select>
+                </div>
+                <div class="recipes-grid" id="recipes-grid">
+                    <!-- Se llenarán con JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <!-- User Modal -->
+    <div id="user-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="user-modal-title">Nuevo Usuario</h3>
+                <button class="modal-close" onclick="closeModal('user-modal')">&times;</button>
+            </div>
+            <form id="user-form" class="modal-body">
+                <input type="hidden" id="user-id">
+                <div class="form-group">
+                    <label for="user-username">Usuario</label>
+                    <input type="text" id="user-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="user-email">Email</label>
+                    <input type="email" id="user-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="user-fullname">Nombre Completo</label>
+                    <input type="text" id="user-fullname" required>
+                </div>
+                <div class="form-group">
+                    <label for="user-active">Estado</label>
+                    <select id="user-active">
+                        <option value="true">Activo</option>
+                        <option value="false">Inactivo</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('user-modal')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Category Modal -->
+    <div id="category-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="category-modal-title">Nueva Categoría</h3>
+                <button class="modal-close" onclick="closeModal('category-modal')">&times;</button>
+            </div>
+            <form id="category-form" class="modal-body">
+                <input type="hidden" id="category-id">
+                <div class="form-group">
+                    <label for="category-name">Nombre</label>
+                    <input type="text" id="category-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="category-description">Descripción</label>
+                    <textarea id="category-description" rows="3"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('category-modal')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Ingredient Modal -->
+    <div id="ingredient-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="ingredient-modal-title">Nuevo Ingrediente</h3>
+                <button class="modal-close" onclick="closeModal('ingredient-modal')">&times;</button>
+            </div>
+            <form id="ingredient-form" class="modal-body">
+                <input type="hidden" id="ingredient-id">
+                <div class="form-group">
+                    <label for="ingredient-name">Nombre</label>
+                    <input type="text" id="ingredient-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="ingredient-description">Descripción</label>
+                    <textarea id="ingredient-description" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="ingredient-unit">Unidad</label>
+                    <input type="text" id="ingredient-unit" placeholder="ej: grams, cups, pieces">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('ingredient-modal')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Recipe Modal -->
+    <div id="recipe-modal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 id="recipe-modal-title">Nueva Receta</h3>
+                <button class="modal-close" onclick="closeModal('recipe-modal')">&times;</button>
+            </div>
+            <form id="recipe-form" class="modal-body">
+                <input type="hidden" id="recipe-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="recipe-title">Título</label>
+                        <input type="text" id="recipe-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipe-category">Categoría</label>
+                        <select id="recipe-category" required>
+                            <option value="">Seleccionar categoría</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="recipe-author">Autor</label>
+                    <select id="recipe-author" required>
+                        <option value="">Seleccionar autor</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="recipe-description">Descripción</label>
+                    <textarea id="recipe-description" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="recipe-instructions">Instrucciones</label>
+                    <textarea id="recipe-instructions" rows="5" required></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="recipe-prep-time">Tiempo Prep (min)</label>
+                        <input type="number" id="recipe-prep-time" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipe-cook-time">Tiempo Cocción (min)</label>
+                        <input type="number" id="recipe-cook-time" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipe-servings">Porciones</label>
+                        <input type="number" id="recipe-servings" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipe-difficulty">Dificultad</label>
+                        <select id="recipe-difficulty">
+                            <option value="">Seleccionar</option>
+                            <option value="easy">Fácil</option>
+                            <option value="medium">Medio</option>
+                            <option value="hard">Difícil</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="recipe-ingredients">Ingredientes</label>
+                    <select id="recipe-ingredients" multiple>
+                        <!-- Se llenarán con JavaScript -->
+                    </select>
+                    <small>Mantén Ctrl/Cmd presionado para seleccionar múltiples ingredientes</small>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('recipe-modal')">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
